@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  date_time: 2019-10-15 14:17:06
+  status: MyString
+  sender: one
+  recipient: one
+
+two:
+  location: MyString
+  date_time: 2019-10-15 14:17:06
+  status: MyString
+  sender: two
+  recipient: two

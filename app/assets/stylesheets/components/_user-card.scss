@@ -1,0 +1,34 @@
+.card-profile-link {
+	&:hover {
+		opacity: 0.8;
+	}
+	a {
+		text-decoration: none;
+		color: black;
+		&:hover {
+			text-decoration: none;
+			color: black;
+
+		}
+	}
+}
+
+.card-address {
+	p {
+		font-size: 15px;
+	}
+}
+
+.user-profile-about {
+
+}
+
+.user-profile-location {
+	font-size: 18px;
+	opacity: 0.7;
+}
+
+.user-profile-description {
+	font-size: 18px; 
+	opacity: 0.8;
+}

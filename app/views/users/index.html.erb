@@ -1,0 +1,97 @@
+<section class="pt-2">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-7">
+				<div class="form-group m-3">
+				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Location">
+				</div>
+			</div>
+			<div class="col-12 text-center col-md-3 text-md-left">
+				<button class="btn btn-primary my-md-3 px-5">Search</button>
+			</div>
+			<div class="col-12 text-center text-md-left col-md-2 show-map py-2">
+				<div class="show-map-title">
+					Show Map	
+				</div>
+				<label class="switch">
+				  <input type="checkbox" id="toggleMapCheckbox" name="toggleMapCheckbox" checked>
+				  <span class="slider round"></span>
+				</label>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="pt-4 pt-md-2">
+	<div class="col-12">
+		<div class="row">
+			<div class="col-12 col-md-7" id="mapCards">
+				<div class="row">
+					<% @users.each do |user| %>
+						<div class="col-12 col-md-4 card-profile-link user-card">
+							<%= link_to user_path(user) do %>
+								<div class="card rounded-bottom mb-4">
+									<div class="card-top rounded-top" style="height: 200px; background-position: center center; background-size: cover; background-image: url('<%= user.photo %>');">
+									</div>
+									<div class="card-content p-3">
+										<div class="card-title">
+											<h3 class="font-weight-light"><%= user.first_name %> <%= user.last_name %></h3>
+										</div>
+										<div class="card-address">
+											<p class="lead"><%= user.address %></p>
+										</div>
+										<p class="card-description lead" style="font-size: 18px;"><%= user.description[0..100] %>...</p>
+									</div>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+			<div
+			  class='col-md-5'
+			  data-aos="fade-left" data-aos-duration="1000"
+			  id="map"
+			  style='position: sticky;top: 0px;overflow: hidden;height: 100vh;'
+			  data-markers="<%= @markers.to_json %>"
+			  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+			></div>
+		</div>
+	</div>
+</section>
+
+
+
+
+<script>
+	const mapElement = document.getElementById('map');
+	const fitMapToMarkers = (map, markers) => {
+	const bounds = new mapboxgl.LngLatBounds();
+	markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
+	map.fitBounds(bounds, { padding: 70, maxZoom: 3 });
+	};
+
+	if (mapElement) {
+	mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
+	const map = new mapboxgl.Map({
+	  container: 'map',
+	  style: 'mapbox://styles/mapbox/streets-v10'
+	});
+
+	const markers = JSON.parse(mapElement.dataset.markers);
+	markers.forEach((marker) => {
+	  const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
+	  new mapboxgl.Marker()
+	    .setLngLat([ marker.lng, marker.lat ])
+	    .setPopup(popup)
+	    .addTo(map);
+	});
+	fitMapToMarkers(map, markers);
+	}
+
+	const placesAutocomplete = places({
+	  appId: 'plCZI8DUM6MD',
+	  apiKey: 'dac48813bddf5ffccda6baeb3bff0b6c',
+	  container: document.querySelector('#location')
+	});
+</script>

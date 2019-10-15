@@ -1,0 +1,82 @@
+<section class="p-2 p-md-11">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-5">
+				<div class="user-profile-card m-3 shadow">
+					<div class="user-profile-pic">
+					 	<img src="<%= @user.photo %>" class="img-thumbnail" alt="<%= @user.first_name %>'s Profile Picture"> 
+					</div>
+					<div class="user-profile-about p-3">
+						<h1 class="font-weight-light mt-3"><%= @user.first_name %> <%= @user.last_name %></h1>
+						<p class="user-profile-location lead"><%= @user.address %></p>
+						<hr>
+						<div class="user-profile-description lead">
+							<p><%= @user.description %></p>
+						</div>
+						<% if @user == current_user %>
+							<div class="edit-user-profile py-2 d-flex mb-1">
+								<%= link_to "Edit Profile", edit_user_registration_path, class: 'btn btn-secondary ml-auto'  %>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-7">
+				<% if (@user != current_user) && (@invite_sent.empty?) %>
+					<div id="new-invite" class="mt-2">
+						<h1 class="font-weight-light">Invite <%= @user.first_name %> to Meet</h1>
+						<hr>
+						<%= simple_form_for([@user, @invite], remote: true) do |f| %>
+						  <%= f.input :location, required: true %>
+						  <%= f.input :date_time, required: true %>
+						  <%= f.button :submit, class: 'btn btn-primary' %>
+						<% end %>
+					</div>
+				<% elsif (@user != current_user) && (@invite_sent.any?)  %>
+					<%= render 'invites/invite-sent' %>
+				<% end %>
+				<div class="user-profile-reviews" id="user-reviews">
+					<h1 class="font-weight-light mt-3">Reviews</h1>
+					<hr>
+					<% if @user_reviews.empty? %>
+						<h3 class="font-weight-light">Be the first to leave a review!</h3>
+					<% else %>
+						<% @user_reviews.each do |review| %>
+							<div class="review">
+								<h6 class="mb-2"><%= review.created_at.strftime('%d %B %Y') %></h6>
+								<% review.rating.times do  %>
+									<%= fa_icon 'star', class: 'mb-3' %>
+								<% end %>
+								<p class="lead" style="font-size: 16px;"><%= review.description %></p>
+								<div class="review-user d-table">
+									<%= link_to user_path(review.reviewer) do %>
+										<div class="d-table-cell">
+										 	<img src="<%= review.reviewer.photo %>" class="rounded-circle" alt="<%= review.reviewer.first_name %>'s Profile Picture" style="height: 50px;width: 50px;"> 
+										</div>
+										<div class="d-table-cell" style="vertical-align: middle;">
+											<div class="ml-3">
+										 		<p class="m-0" style="font-size: 14px;font-weight: 500">
+										 			<%= review.reviewer.first_name %> <%= review.reviewer.last_name %></p>
+										 		<p class="lead m-0" style="font-size: 12px;">Joined in <%= review.reviewer.created_at.strftime('%B %Y') %></p>
+											</div>
+										</div>
+									<% end %>
+								</div>
+							</div>
+							<hr>
+						<% end %>
+					<% end %>
+				</div>
+				<div id="new-review" class="mt-3">
+					<h3 class="font-weight-light">Leave a Review about <%= @user.first_name %></h3>
+					<hr>
+					<%= simple_form_for([@user, @review], remote: true) do |f| %>
+					  <%= f.input :rating, required: true %>
+					  <%= f.input :description, required: true %>
+					  <%= f.button :submit, class: 'btn btn-primary' %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

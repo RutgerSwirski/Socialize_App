@@ -1,0 +1,6 @@
+<div class="info-window">
+	<%= cl_image_tag user.photo, class: 'info-window-pic' %>
+	<h5><%= user.first_name %> <%= user.last_name %></h5>
+	<p><%= user.address %></p>
+	<%= link_to "Go To Profile", user_path(user), class: 'btn btn-primary info-window-button'  %>
+</div>
