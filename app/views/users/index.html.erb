@@ -50,7 +50,6 @@
 			</div>
 			<div
 			  class='col-md-5'
-			  data-aos="fade-left" data-aos-duration="1000"
 			  id="map"
 			  style='position: sticky;top: 0px;overflow: hidden;height: 100vh;'
 			  data-markers="<%= @markers.to_json %>"
@@ -89,9 +88,9 @@
 	fitMapToMarkers(map, markers);
 	}
 
-	const placesAutocomplete = places({
-	  appId: 'plCZI8DUM6MD',
-	  apiKey: 'dac48813bddf5ffccda6baeb3bff0b6c',
-	  container: document.querySelector('#location')
-	});
+	// const placesAutocomplete = places({
+	//   appId: 'plCZI8DUM6MD',
+	//   apiKey: 'dac48813bddf5ffccda6baeb3bff0b6c',
+	//   container: document.querySelector('#location')
+	// });
 </script>
