@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_15_155112) do
+ActiveRecord::Schema.define(version: 2019_10_16_142216) do
 
   create_table "invites", force: :cascade do |t|
     t.string "location"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2019_10_15_155112) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipient_id"], name: "index_invites_on_recipient_id"
     t.index ["sender_id"], name: "index_invites_on_sender_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string "photo"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_photos_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -56,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_155112) do
 
   add_foreign_key "invites", "users", column: "recipient_id"
   add_foreign_key "invites", "users", column: "sender_id"
+  add_foreign_key "photos", "users"
   add_foreign_key "reviews", "users", column: "reviewee_id"
   add_foreign_key "reviews", "users", column: "reviewer_id"
 end
