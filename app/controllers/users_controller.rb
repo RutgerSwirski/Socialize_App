@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
+	before_action :authenticate_user!
 	def show
 		@user = User.find(params[:id])
-		# @reviews = @user.reviews
 		@invite = Invite.new
 		@review = Review.new
 		@invite_sent = Invite.where(recipient: @user, sender: current_user)

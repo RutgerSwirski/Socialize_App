@@ -19,6 +19,7 @@ $ (function() {
 	AOS.init();
 });
 
+
 window.onload = function() {
 	if (window.location.pathname == '/users') {
 		require("../components/toggleMap")
