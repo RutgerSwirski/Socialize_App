@@ -1,0 +1,34 @@
+<section>
+	<div class="container">
+		<h2 class="my-3 font-weight-light">Invites for <%= current_user.first_name %></h2>
+		<hr>
+		<div class="row">
+			<% if @user_invites.empty? %>
+				<h2 class="font-weight-light p-3">No Invites</h2>
+			<% else %>
+				<% @user_invites.each do |invite| %>
+					<div class="col-12 col-md-3" id="<%= invite.id %>">
+						<div class="card rounded-bottom mb-4">
+							<!-- <div class="accepted-invite-text">
+								<%#= fa_icon 'check 3x' %>
+								<h2 class="font-weight-light p-1">Invite Accepted</h2>
+							</div> -->
+							<div class="card-top rounded-top" style="height: 200px; background-position: center center; background-size: cover; background-image: url('<%= invite.sender.photo %>');">
+							</div>
+							<div class="card-content p-3">
+								<div class="card-title">
+									<h3 class="font-weight-light"><%= invite.sender.first_name %> <%= invite.sender.last_name %></h3>
+								</div>
+								<p class="lead" style="font-size: 18px;">has invited you to meet in <%= invite.location %> on <%= invite.date_time.strftime("%b %e at %l:%M %p") %></p>
+								<div class="card-buttons text-center" style="display: flex; justify-content: space-between;">
+									 <%= link_to "Accept", invite_path(invite), method: :patch, class: 'btn btn-dark px-4', remote: true %>
+									<button class="btn btn-light px-4">Decline</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</section>
