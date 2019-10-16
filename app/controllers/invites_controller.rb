@@ -13,7 +13,6 @@ class InvitesController < ApplicationController
 	        format.html { redirect_to user_path(@user) }
 	        format.js  # <-- will render `app/views/reviews/create.js.erb`
 	      end
-	      raise
 	    else
 	      respond_to do |format|
 	        format.html { render 'users/show' }
