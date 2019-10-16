@@ -7,7 +7,7 @@
 				<h2 class="font-weight-light p-3">No Invites</h2>
 			<% else %>
 				<% @user_invites.each do |invite| %>
-					<div class="col-12 col-md-3" id="<%= invite.id %>">
+					<div class="col-12 col-md-3" id="invite-card-<%= invite.id %>">
 						<div class="card rounded-bottom mb-4">
 							<!-- <div class="accepted-invite-text">
 								<%#= fa_icon 'check 3x' %>
