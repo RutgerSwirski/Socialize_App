@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index] do
   	resources :invites, only: :create
   	resources :reviews
+  	resources :photos
   end
-  resources :invites, only: [:index, :update]
+  resources :invites, only: [:index, :update, :destroy]
 end

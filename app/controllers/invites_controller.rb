@@ -32,9 +32,18 @@ class InvitesController < ApplicationController
 	    else
 	      respond_to do |format|
 	        format.html { render 'invites' }
-	        format.js  # <-- idem
+	        format.js
 	      end
 	    end
+	end
+
+	def destroy
+		@invite = Invite.find(params[:id])
+		@invite.destroy
+		respond_to do |format|
+			format.html { redirect_to invites_path }
+			format.js
+		end
 	end
 
 	private

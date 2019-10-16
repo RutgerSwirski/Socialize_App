@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 		@review = Review.new
 		@invite_sent = Invite.where(recipient: @user, sender: current_user)
 		@user_reviews = Review.where(reviewee: @user)
+		@image = Photo.new
 	end
 
 	def index
