@@ -10,6 +10,15 @@
 						<h1 class="font-weight-light mt-3"><%= @user.first_name %> <%= @user.last_name %></h1>
 						<p class="user-profile-location lead"><%= @user.address %></p>
 						<hr>
+						<div class="user-rating">
+							<% Review.where(reviewee: @user).average(:rating).to_i.times do %>
+								<%= fa_icon 'star' %>
+							<% end %>
+						</div>
+						<div class="user-review-count my-2">
+							<%= fa_icon 'comment' %> (<%= Review.where(reviewee: @user).count.to_i %>)
+						</div>
+						<hr>
 						<div class="user-profile-description lead">
 							<p><%= @user.description %></p>
 						</div>

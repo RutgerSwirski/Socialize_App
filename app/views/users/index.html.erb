@@ -38,7 +38,15 @@
 											<h3 class="font-weight-light"><%= user.first_name %> <%= user.last_name %></h3>
 										</div>
 										<div class="card-address">
-											<p class="lead"><%= user.address %></p>
+											<p class="lead mb-1"><%= user.address %></p>
+										</div>
+										<div class="user-rating" style="font-size: 14px;">
+											<% Review.where(reviewee: user).average(:rating).to_i.times do %>
+												<%= fa_icon 'star' %>
+											<% end %>
+										</div>
+										<div class="user-review-count mb-2" style="font-size: 14px;">
+											<%= fa_icon 'comment' %> (<%= Review.where(reviewee: user).count.to_i %>)
 										</div>
 										<p class="card-description lead" style="font-size: 18px;"><%= user.description[0..100] %>...</p>
 									</div>
