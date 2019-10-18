@@ -1,8 +1,9 @@
 class InvitesController < ApplicationController
 	def index
 		@user_invites = Invite.where(recipient: current_user, status: 'pending')
-		@accepted_invites = Invite.where(recipient: current_user, status: 'accepted')
+		@accepted_invites = Invite.where(recipient: current_user, status: 'accepted').or(Invite.where(sender: current_user, status: 'accepted'))
 	end
+
 	def create
 	    @user = User.find(params[:user_id])
 	    @invite = Invite.new(invite_params)
