@@ -9,17 +9,13 @@
 					<div class="user-profile-about p-3">
 						<h1 class="font-weight-light mt-3"><%= @user.first_name %> <%= @user.last_name %></h1>
 						<p class="user-profile-location lead"><%= @user.address %></p>
-						<hr>
-						<div class="user-rating">
-							<% Review.where(reviewee: @user).average(:rating).to_i.times do %>
-								<%= fa_icon 'star' %>
-							<% end %>
+
+						<div class="user-rating" style="font-size: 14px;font-weight: 600">
+							<%= fa_icon 'star' %>
+							 <%= Review.where(reviewee: @user).average(:rating) %> (<%= Review.where(reviewee: @user).count.to_i %>)
 						</div>
-						<div class="user-review-count my-2">
-							<%= fa_icon 'comment' %> (<%= Review.where(reviewee: @user).count.to_i %>)
-						</div>
-						<hr>
-						<div class="user-profile-description lead">
+
+						<div class="user-profile-description lead mt-3">
 							<p><%= @user.description %></p>
 						</div>
 						<% if @user == current_user %>
