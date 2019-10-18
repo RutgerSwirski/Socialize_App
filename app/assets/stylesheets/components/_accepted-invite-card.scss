@@ -1,0 +1,9 @@
+.accepted-invite-user-profile a {
+	text-decoration: none;
+	color: black;
+	&:hover {
+		text-decoration: none;
+		opacity: 0.8;
+		color: black;
+	}
+}

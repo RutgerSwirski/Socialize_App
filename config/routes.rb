@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   	resources :reviews
   	resources :photos
   end
-  resources :invites, only: [:index, :update, :destroy]
+  resources :invites, only: [:index, :edit, :update, :destroy]
 end

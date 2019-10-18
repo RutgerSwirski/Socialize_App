@@ -51,13 +51,13 @@
 						</div>
 					<% end %>
 					<% if @user == current_user %>
-						<h4 class="font-weight-light">Upload New Images</h4>
+						<h4 class="font-weight-light mt-4">Upload New Images</h4>
 						<hr>
 						<div id="new-images">
 							<%= simple_form_for([@user, @image], remote: true) do |f| %>
 							  <%= f.input :photo, label: false, input_html: { multiple: true } %>
 							  <%= f.input :photo_cache, as: :hidden %>
-							  <%= f.button :submit, 'Upload', class: 'btn btn-primary' %>
+							  <%= f.button :submit, 'Upload', class: 'btn btn-primary px-3' %>
 							<% end %>
 						</div>
 					<% end %>
@@ -115,7 +115,7 @@
 						<h3 class="font-weight-light">Leave a Review about <%= @user.first_name %></h3>
 						<hr>
 						<%= simple_form_for([@user, @review], remote: true) do |f| %>
-						  <%= f.input :rating, required: true, collection: [1,2,3,4,5] %>
+						  <%= f.input :rating, collection: 1..5, include_blank: false %>
 						  <%= f.input :description, required: true %>
 						  <%= f.button :submit, class: 'btn btn-primary' %>
 						<% end %>
