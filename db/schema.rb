@@ -12,12 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2019_10_16_142216) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "invites", force: :cascade do |t|
     t.string "location"
     t.datetime "date_time"
     t.string "status"
-    t.integer "sender_id"
-    t.integer "recipient_id"
+    t.bigint "sender_id"
+    t.bigint "recipient_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipient_id"], name: "index_invites_on_recipient_id"
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_10_16_142216) do
 
   create_table "photos", force: :cascade do |t|
     t.string "photo"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_photos_on_user_id"
@@ -35,8 +38,8 @@ ActiveRecord::Schema.define(version: 2019_10_16_142216) do
   create_table "reviews", force: :cascade do |t|
     t.text "description"
     t.integer "rating"
-    t.integer "reviewee_id"
-    t.integer "reviewer_id"
+    t.bigint "reviewee_id"
+    t.bigint "reviewer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["reviewee_id"], name: "index_reviews_on_reviewee_id"

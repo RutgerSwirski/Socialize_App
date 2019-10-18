@@ -1,15 +1,15 @@
 <section class="pt-2">
 	<div class="container">
 		<div class="row">
-			<div class="col-12 col-md-7">
-				<div class="form-group m-3">
-				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Location">
+			<%= form_tag users_path, method: :get, remote: true, class: 'form-inline' do %>
+				<div class="col-12 col-md-9">
+					<%= text_field_tag :search, params[:search], placeholder: 'Enter Location or Name', class: 'location-input' %>
 				</div>
-			</div>
-			<div class="col-12 text-center col-md-3 text-md-left">
-				<button class="btn btn-primary my-md-3 px-5">Search</button>
-			</div>
-			<div class="col-12 text-center text-md-left col-md-2 show-map py-2">
+				<div class="col-12 text-center col-md-2">
+					<%= submit_tag "Search", class: "btn btn-primary search-button" %>
+				</div>
+			<% end %>
+			<div class="col-12 text-center text-md-left col-md-2 show-map my-3">
 				<div class="show-map-title">
 					Show Map	
 				</div>
@@ -47,6 +47,9 @@
 						</div>
 					<% end %>
 				</div>
+			</div>
+			<div id="search-results" class="col-12 col-md-7" style="display: none;">
+
 			</div>
 			<div
 			  class='col-md-5'

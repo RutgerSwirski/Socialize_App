@@ -10,18 +10,31 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		@users = User.where.not(id: current_user.id).geocoded
-
-		if params[:location].present?
-			@users = User.where.not(id: current_user.id).near(params[:location], params[:distance].to_i)
-		end
-
-	    @markers = @users.map do |user|
-	      {
-	        lat: user.latitude,
-	        lng: user.longitude,
-	        infoWindow: render_to_string(partial: "info_window", locals: { user: user })
-	      }
+		if params[:search]
+	      @search_results_users = User.search_by_location_and_first_name_and_last_name(params[:search]).geocoded
+	      respond_to do |format|
+	        format.js { render partial: 'search-results'}
+	      end
+	    else
+	      @users = User.where.not(id: current_user.id).geocoded
 	    end
+
+	    if params[:search]
+	    	@markers = @search_results_users.map do |user|
+		      {
+		        lat: user.latitude,
+		        lng: user.longitude,
+		        infoWindow: render_to_string(partial: "info_window", locals: { user: user })
+		      }
+		    end
+		else
+		    @markers = @users.map do |user|
+		      {
+		        lat: user.latitude,
+		        lng: user.longitude,
+		        infoWindow: render_to_string(partial: "info_window", locals: { user: user })
+		      }
+		    end
+		end
 	end
 end

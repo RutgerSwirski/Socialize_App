@@ -1,10 +1,33 @@
 <section>
 	<div class="container">
+		<% if @accepted_invites.any? %>
+			<h2 class="my-3 font-weight-light">Accepted Invites</h2>
+			<hr>
+			<% @accepted_invites.each do |invite| %>
+				<div class="col-12 border rounded mt-3" id="invite-card-<%= invite.id %>">
+					<div class="row">
+						<div class="col-12 col-md-2 pt-3 text-center accepted-invite-user-profile">
+							<%= link_to user_path(invite.sender) do %>
+								<img src="<%= invite.sender.photo %>" class="rounded-circle" alt="" style="height: 60px;width: 60px;">
+								<p class="lead mt-2" style="font-size: 16px;"><%= invite.sender.first_name %> <%= invite.sender.last_name %></p>
+							<% end %>
+						</div>
+						<div class="col-12 col-md-8">
+							<h4 class="mt-4"><%= fa_icon 'check' %> Accepted</h4>
+							<p class="lead pt-3" style="font-size: 18px;">You have agreed to meet <%= invite.sender.first_name %> <%= invite.sender.last_name %> at <%= invite.location %> on <%= invite.date_time.strftime("%b %e at %l:%M %p") %></p>
+						</div>
+						<div class="col-12 col-md-2">
+							<%= link_to "Cancel", invite_path(invite), method: :delete, remote: true, class: 'btn btn-light mt-4 px-4'  %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
 		<h2 class="my-3 font-weight-light">Invites for <%= current_user.first_name %></h2>
 		<hr>
 		<div class="row">
 			<% if @user_invites.empty? %>
-				<h2 class="font-weight-light p-3">No Invites</h2>
+				<h2 class="font-weight-light p-3">No New Invites</h2>
 			<% else %>
 				<% @user_invites.each do |invite| %>
 					<div class="col-12 col-md-3" id="invite-card-<%= invite.id %>">
