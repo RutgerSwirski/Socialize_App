@@ -1,22 +1,27 @@
-<div class="row">
-	<% @search_results_users.each do |user| %>
-		<div class="col-12 col-md-4 card-profile-link user-card">
-			<%= link_to user_path(user) do %>
-				<div class="card rounded-bottom mb-4">
-					<div class="card-top rounded-top" style="height: 200px; background-position: center center; background-size: cover; background-image: url('<%= user.photo %>');">
-					</div>
-					<div class="card-content p-3">
-						<div class="card-title">
-							<h3 class="font-weight-light"><%= user.first_name %> <%= user.last_name %></h3>
+<% if @search_results_users.any? %>
+	<div class="row">
+		<% @search_results_users.each do |user| %>
+			<div class="col-12 col-md-4 card-profile-link user-card">
+				<%= link_to user_path(user) do %>
+					<div class="card rounded-bottom mb-4">
+						<div class="card-top rounded-top" style="height: 200px; background-position: center center; background-size: cover; background-image: url('<%= user.photo %>');">
 						</div>
-						<div class="card-address">
-							<p class="lead"><%= user.address %></p>
+						<div class="card-content p-3">
+							<div class="card-title">
+								<h3 class="font-weight-light"><%= user.first_name %> <%= user.last_name %></h3>
+							</div>
+							<div class="card-address">
+								<p class="lead"><%= user.address %></p>
+							</div>
+							<p class="card-description lead" style="font-size: 18px;"><%= user.description[0..100] %>...</p>
 						</div>
-						<p class="card-description lead" style="font-size: 18px;"><%= user.description[0..100] %>...</p>
 					</div>
-				</div>
-			<% end %>
-		</div>
-	<% end %>
-</div>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+<% else %>
+	<h3 class="font-weight-light p-3">No Users Found</h3>
+	<%= link_to "View All", users_path, class: 'btn btn-secondary ml-3 px-3'  %>
+<% end %>
 
