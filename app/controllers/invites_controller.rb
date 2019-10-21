@@ -10,16 +10,14 @@ class InvitesController < ApplicationController
 	    @invite.sender = current_user
 	    @invite.recipient = @user
 	    @invite.status = 'pending'
-	    if @invite.save
-	      respond_to do |format|
-	        format.html { redirect_to user_path(@user) }
-	        format.js  # <-- will render `app/views/reviews/create.js.erb`
-	      end
-	    else
-	      respond_to do |format|
-	        format.html { render 'users/show' }
-	        format.js # <-- idem
-	      end
+		respond_to do |format|
+	    	if ((@invite.date_time > Time.now + 10*180) && (@invite.location != ""))
+		        @invite.save
+		        format.html { redirect_to user_path(@user) }
+		        format.js 
+	    	else
+	    		format.js { render 'date_time_location_error'}
+	    	end
 	    end
 	end
 

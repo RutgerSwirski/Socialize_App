@@ -1,3 +1,5 @@
 $('#new-images form').trigger("reset");
 $('#new-images').before("<%= j render 'images_uploaded' %>")
 $('#upload-successful').delay(3000).fadeOut()
+$("#carouselExampleIndicators").load(" #carouselExampleIndicators");
+$("#userPhotos").load(" #userPhotos");

@@ -1,15 +1,15 @@
-<section class="pt-2">
-	<div class="container">
+<section class="search-and-show-hide-map">
+	<div class="container" style="max-width: 100%;">
 		<div class="row">
-			<%= form_tag users_path, method: :get, remote: true, class: 'form-inline' do %>
-				<div class="col-12 col-md-9">
-					<%= text_field_tag :search, params[:search], placeholder: 'Enter Location or Name', class: 'location-input' %>
+			<%= form_tag users_path, method: :get, remote: true, style: 'display: table;', id: 'search-user-form' do %>
+				<div class="col-12 col-md-9" style="display: table-cell;vertical-align: middle;">
+					<%= text_field_tag :search, params[:search], placeholder: 'Enter Location or Name', class: 'location-input shadow-sm' %>
 				</div>
-				<div class="col-12 text-center col-md-2">
-					<%= submit_tag "Search", class: "btn btn-primary search-button" %>
+				<div class="col-12 text-center col-md-2" style="display: table-cell;vertical-align: middle;">
+					<%= submit_tag "Search", class: "btn btn-primary search-button px-4" %>
 				</div>
 			<% end %>
-			<div class="col-12 text-center text-md-left col-md-2 show-map my-3">
+			<div class="col-12 text-center text-md-left col-md-2 show-map">
 				<div class="show-map-title">
 					Show Map	
 				</div>
@@ -41,9 +41,9 @@
 											<p class="lead mb-1"><%= user.address %></p>
 										</div>
 										<p class="card-description lead" style="font-size: 18px;"><%= user.description[0..100] %>...</p>
-										<div class="user-rating" style="font-size: 14px;font-weight: 600">
+										<div class="user-rating" style="font-size: 15px;font-weight: 600">
 											<%= fa_icon 'star' %>
-											 <%= Review.where(reviewee: user).average(:rating) %> (<%= Review.where(reviewee: user).count.to_i %>)
+											 <%= Review.where(reviewee: user).average(:rating).to_f.round(2) %> (<%= Review.where(reviewee: user).count.to_i %>)
 										</div>
 									</div>
 								</div>
@@ -94,10 +94,4 @@
 	});
 	fitMapToMarkers(map, markers);
 	}
-
-	// const placesAutocomplete = places({
-	//   appId: 'plCZI8DUM6MD',
-	//   apiKey: 'dac48813bddf5ffccda6baeb3bff0b6c',
-	//   container: document.querySelector('#location')
-	// });
 </script>

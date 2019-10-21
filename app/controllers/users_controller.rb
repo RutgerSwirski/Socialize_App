@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
 	def index
 		if params[:search]
-	      @search_results_users = User.search_by_location_and_first_name_and_last_name(params[:search]).geocoded
+	      @search_results_users = User.where.not(id: current_user.id).search_by_location_and_first_name_and_last_name(params[:search]).geocoded
 	      respond_to do |format|
 	        format.js { render partial: 'search-results'}
 	      end
