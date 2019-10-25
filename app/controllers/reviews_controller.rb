@@ -17,6 +17,15 @@ class ReviewsController < ApplicationController
 	    end
 	end
 
+	def destroy
+		@review = Review.find(params[:id])
+		@review.destroy
+		respond_to do |format|
+			format.html { redirect_to user_path(@user) }
+			format.js
+		end
+	end
+
 	private
 
 	def review_params
